@@ -1,3 +1,4 @@
 export interface Environment {
-  port: number;
+  PORT: number;
+  FILE_UPLOPAD_PATH: number;
 }

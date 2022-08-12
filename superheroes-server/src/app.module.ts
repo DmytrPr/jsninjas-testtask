@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { resolve } from 'path';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { MulterModule } from '@nestjs/platform-express';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join, resolve } from 'path';
+import { SuperheroModule } from './modules/superhero/superhero.module';
 
 @Module({
   imports: [
@@ -17,8 +18,9 @@ import { AppService } from './app.service';
           : '.env.development',
       ),
     }),
+    SuperheroModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

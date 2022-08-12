@@ -1,8 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
-import { MulterModule } from '@nestjs/platform-express';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join, resolve } from 'path';
+import { resolve } from 'path';
 import { SuperheroModule } from './modules/superhero/superhero.module';
 
 @Module({

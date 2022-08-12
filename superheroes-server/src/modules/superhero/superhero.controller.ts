@@ -2,21 +2,15 @@ import {
   Body,
   Controller,
   Delete,
-  FileTypeValidator,
   Get,
-  MaxFileSizeValidator,
   Param,
-  ParseFilePipe,
   Patch,
   Post,
-  StreamableFile,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { Hero } from '@prisma/client';
-import { createReadStream } from 'fs';
-import { join } from 'path';
 import { PaginationRequest } from 'src/dtos/pagination-request.dto';
 import { Paginated } from 'src/interfaces/paginated-response.interface';
 import { SuperheroCreateDTO } from './dtos/superhero.create.dto';

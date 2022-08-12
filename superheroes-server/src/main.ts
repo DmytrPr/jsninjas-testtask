@@ -11,6 +11,7 @@ async function bootstrap() {
 
   const config = app.get<ConfigService<Environment>>(ConfigService);
   const port = config.get('PORT');
+  const img_path = config.get('FILE_UPLOAD_PATH');
 
   app.enableCors({ origin: ['http://localhost:8080'], credentials: true });
 
@@ -21,7 +22,7 @@ async function bootstrap() {
     }),
   );
 
-  app.useStaticAssets(join(__dirname, '..', 'images'), {
+  app.useStaticAssets(join(__dirname, '..', img_path), {
     prefix: '/images/',
   });
 

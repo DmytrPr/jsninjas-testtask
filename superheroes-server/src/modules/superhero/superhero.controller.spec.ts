@@ -123,11 +123,11 @@ describe('SuperheroController', () => {
         catch_phrase: 'Mock phrase 1',
         image_paths: ['mock_path_1.png'],
       };
-      expect(await heroController.createHero(dto)).toEqual({
+      expect(await heroController.createHero(dto, [])).toEqual({
         id: expect.any(String),
         ...dto,
       });
-      expect(mockHeroService.createHero).toBeCalledWith(dto);
+      expect(mockHeroService.createHero).toBeCalledWith(dto, []);
     });
   });
 

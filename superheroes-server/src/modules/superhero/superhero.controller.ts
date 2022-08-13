@@ -35,8 +35,13 @@ export class SuperheroController {
   }
 
   @Post()
-  public async createHero(@Body() hero: SuperheroCreateDTO): Promise<Hero> {
-    return this.superheroService.createHero(hero);
+  @UseInterceptors(FilesInterceptor('images'))
+  public async createHero(
+    @Body() hero: SuperheroCreateDTO,
+    @UploadedFiles()
+    files: Array<Express.Multer.File>,
+  ): Promise<Hero> {
+    return this.superheroService.createHero(hero, files);
   }
 
   @Delete(':id')

@@ -22,7 +22,10 @@ export class SuperheroService {
     offset: skip,
   }: PaginationRequest): Promise<Paginated<Hero>> {
     const [data, total] = await Promise.all([
-      this.prismaService.hero.findMany({ take, skip }),
+      this.prismaService.hero.findMany({
+        take: parseInt(take),
+        skip: parseInt(skip),
+      }),
       this.prismaService.hero.count(),
     ]);
     return {

@@ -6,6 +6,7 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
@@ -24,8 +25,9 @@ export class SuperheroController {
 
   @Get()
   public async getHeroes(
-    @Body() pag: PaginationRequest,
+    @Query() pag: PaginationRequest,
   ): Promise<Paginated<Hero>> {
+    console.log(pag);
     return this.superheroService.getHeroes(pag);
   }
 

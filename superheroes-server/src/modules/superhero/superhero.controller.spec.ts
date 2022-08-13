@@ -95,7 +95,9 @@ describe('SuperheroController', () => {
 
   describe('getHeroes', () => {
     it('should return an array of heroes', async () => {
-      expect(await heroController.getHeroes({ offset: 0, size: 5 })).toEqual({
+      expect(
+        await heroController.getHeroes({ offset: '0', size: '5' }),
+      ).toEqual({
         total: expect.any(Number),
         data: expect.any(Array<Hero>),
       });

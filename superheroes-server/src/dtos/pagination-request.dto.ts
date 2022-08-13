@@ -1,8 +1,8 @@
-import { IsNumber } from 'class-validator';
+import { IsNumberString } from 'class-validator';
 
 export class PaginationRequest {
-  @IsNumber({ allowNaN: false, allowInfinity: false })
-  size: number;
-  @IsNumber({ allowNaN: false, allowInfinity: false })
-  offset: number;
+  @IsNumberString()
+  size: string;
+  @IsNumberString()
+  offset: string;
 }

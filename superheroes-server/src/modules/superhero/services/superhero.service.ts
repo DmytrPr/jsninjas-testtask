@@ -1,4 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  PayloadTooLargeException,
+} from '@nestjs/common';
 import { Hero } from '@prisma/client';
 import { PaginationRequest } from 'src/dtos/pagination-request.dto';
 import { Paginated } from 'src/interfaces/paginated-response.interface';
@@ -25,6 +30,9 @@ export class SuperheroService {
       this.prismaService.hero.findMany({
         take: parseInt(take),
         skip: parseInt(skip),
+        orderBy: {
+          nickname: 'asc',
+        },
       }),
       this.prismaService.hero.count(),
     ]);
@@ -42,6 +50,11 @@ export class SuperheroService {
     data: SuperheroCreateDTO,
     files: Array<Express.Multer.File>,
   ): Promise<Hero> {
+    if (files.length > 4) {
+      throw new PayloadTooLargeException(
+        'Only up to 4 images per hero are accepted',
+      );
+    }
     return this.prismaService.hero.create({
       data: { ...data, image_paths: files.map((file) => file.filename) },
     });
@@ -67,6 +80,12 @@ export class SuperheroService {
       ...newHero.image_paths?.split(','),
       ...files.map((file) => file.filename),
     ];
+
+    if (newImagePaths.length > 4) {
+      throw new PayloadTooLargeException(
+        'Only up to 4 images per hero are accepted',
+      );
+    }
 
     const toDelete = oldHero.image_paths.filter(
       (img) => !newImagePaths.includes(img),

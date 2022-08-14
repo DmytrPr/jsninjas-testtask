@@ -27,7 +27,6 @@ export class SuperheroController {
   public async getHeroes(
     @Query() pag: PaginationRequest,
   ): Promise<Paginated<Hero>> {
-    console.log(pag);
     return this.superheroService.getHeroes(pag);
   }
 
@@ -37,7 +36,7 @@ export class SuperheroController {
   }
 
   @Post()
-  @UseInterceptors(FilesInterceptor('images'))
+  @UseInterceptors(FilesInterceptor('images', 4))
   public async createHero(
     @Body() hero: SuperheroCreateDTO,
     @UploadedFiles()
@@ -52,7 +51,7 @@ export class SuperheroController {
   }
 
   @Patch()
-  @UseInterceptors(FilesInterceptor('images'))
+  @UseInterceptors(FilesInterceptor('images', 4))
   public updateHero(
     @Body() hero: SuperheroEditDTO,
     @UploadedFiles()

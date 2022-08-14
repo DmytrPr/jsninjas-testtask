@@ -9,18 +9,19 @@ interface PageButtonProps {
 
 const PageButton = styled.button<PageButtonProps>`
     font-size: 1em; 
-    padding: 0.5em 0.5em;   
-    border: 2px solid gray;
+    padding: 10px;   
+    margin: 5px;
+    border: none;
     border-radius: 5px;
     
     background: ${(props) => (props.selected ? 'rgb(100, 100, 100)' : 'white')};
     color: ${(props) => (props.selected ? 'white' : 'black')};
 
-    &:hover {
+    &:hover:not(:disabled) {
         background: rgb(200, 200, 200);
     }
 
-    &:active {
+    &:active:not(:disabled) {
         background: rgb(70, 70, 70);
     }
 

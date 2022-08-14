@@ -11,21 +11,23 @@ const InfoContainer = styled.div`
     flex-direction: column;
     justify-content: space-between;
     padding-bottom: 5px;
-    span{
-      &:last-child {
-        padding-left: 20px;
-      }
+    div{
+      padding-left: 20px;
     }
+`;
+
+const Label = styled.span`
+  color: gray;
 `;
 
 export const InfoBar = ({ label, value }: InfoBarProps) => (
   <InfoContainer>
-    <span>
+    <Label>
       {label}
       :
-    </span>
-    <span>
+    </Label>
+    <div>
       {value}
-    </span>
+    </div>
   </InfoContainer>
 );

@@ -2,7 +2,9 @@ import {
   AnyAction,
   createAsyncThunk, createSlice, Middleware, PayloadAction,
 } from '@reduxjs/toolkit';
-import { deleteHeroById, fetchHeroes } from './heroesAPI';
+import {
+  deleteHeroById, fetchHeroes, createHero as crHero, editHero as edHero,
+} from './heroesAPI';
 import { Hero } from './interfaces/hero.interface';
 
 export interface HeroesState {
@@ -24,9 +26,19 @@ export const loadHeroes = createAsyncThunk(
   async ({ size, offset }: {size: number, offset: number}) => fetchHeroes(size, offset),
 );
 
+export const createHero = createAsyncThunk(
+  'heroes/createHero',
+  async ({ heroData }: {heroData: FormData}) => crHero(heroData),
+);
+
 export const deleteHero = createAsyncThunk(
   'heroes/deleteHero',
   async ({ id }: {id: string}) => deleteHeroById(id),
+);
+
+export const editHero = createAsyncThunk(
+  'heroes/editHero',
+  async ({ heroData }: {heroData: FormData}) => edHero(heroData),
 );
 
 export const heroesSlice = createSlice({
@@ -60,7 +72,14 @@ export const heroesSlice = createSlice({
 });
 
 export const reloadHeroesMiddleware: Middleware = (store) => (next) => (action) => {
-  if (['heroes/movePage', 'heroes/nextPage', 'heroes/previousPage', 'heroes/deleteHero/fulfilled'].includes(action.type)) {
+  if ([
+    'heroes/movePage',
+    'heroes/nextPage',
+    'heroes/previousPage',
+    'heroes/deleteHero/fulfilled',
+    'heroes/createHero/fulfilled',
+    'heroes/editHero/fulfilled',
+  ].includes(action.type)) {
     const result = next(action);
     const { page } = store.getState().heroes;
     store.dispatch(loadHeroes({ size: 5, offset: (page - 1) * 5 }) as unknown as AnyAction);

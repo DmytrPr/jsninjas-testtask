@@ -22,6 +22,8 @@ $ npm i
 
 ## Running the app
 Check corresponding .env files(.env for front-end, /config/.env.[production|development] for back-end) for launch parameters.
+
+Before starting up a server, start up a docker container for the database
 ```bash
 # server
 $ cd superheroes-server
